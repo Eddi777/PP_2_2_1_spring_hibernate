@@ -30,18 +30,13 @@ public class UserDaoImp implements UserDao {
 
    @Override
    public User userByCar(String model, int series) {
-      try {
-         User usr = sessionFactory.getCurrentSession()
+         return sessionFactory.getCurrentSession()
                  .createQuery("FROM User user LEFT OUTER JOIN FETCH user.car "
                          + "WHERE user.car.model=:model and user.car.series=:series"
                          , User.class)
                  .setParameter("model", model)
                  .setParameter("series", series)
                  .uniqueResult();
-         return usr;
-      } catch (NonUniqueResultException e) {
-         System.out.println("Ошибка поиска пользователя " + e.getMessage());
-         return null;
-      }
    }
 }
+
